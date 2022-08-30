@@ -1,13 +1,12 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import MainNavigator from "./src/navigators/MainNavigator";
+import { rootStore, StoreProvider } from "./src/store";
 
 
-const App = () => {
-  return (
-    <View>
-      <Text>Hello world</Text>
-    </View>
-  )
-}
+const App = () => (
+  <StoreProvider value={rootStore}>
+    <MainNavigator/>
+  </StoreProvider>
+)
 
 export default App;
