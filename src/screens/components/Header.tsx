@@ -1,44 +1,48 @@
 import React from 'react';
-import { View, Text, StyleSheet } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { SvgLogo } from "../../assets/icons/SvgLogo";
-import { Colors } from "../../styles";
+import { View, Text, StyleSheet } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { SvgLogo } from '../../assets/icons/SvgLogo';
 
 interface HeaderProps {
   title: string;
+  bottomRadius?: boolean;
 }
 
-export const Header:React.FC<HeaderProps> = ({title}) => {
+export const Header: React.FC<HeaderProps> = ({ title, bottomRadius = true }) => {
   const topIndent = useSafeAreaInsets().top;
 
-  return(
-    <View style={[styles.container, {paddingTop: topIndent,height: 50 + topIndent }]}>
+  return (
+    <View
+      style={[
+        styles.container,
+        { paddingTop: topIndent, height: 50 + topIndent },
+        bottomRadius && { borderBottomEndRadius: 24, borderBottomStartRadius: 24 },
+      ]}
+    >
       <View style={styles.logo}>
-        <SvgLogo/>
+        <SvgLogo />
       </View>
       <Text style={styles.title}>{title}</Text>
-      <View style={styles.logo}/>
+      <View style={styles.logo} />
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: 'white',
-    borderBottomEndRadius: 24,
-    borderBottomStartRadius: 24,
-    paddingHorizontal: 16
+    paddingHorizontal: 16,
   },
   title: {
     fontSize: 24,
-    fontWeight: '500'
+    fontWeight: '500',
   },
-  logo:{
+  logo: {
     width: 60,
     height: 40,
-    justifyContent: 'center'
-  }
-})
+    justifyContent: 'center',
+  },
+});
