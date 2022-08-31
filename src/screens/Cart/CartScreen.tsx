@@ -11,6 +11,7 @@ const CartScreen: React.FC = observer(() => {
 
   const totalPrice = items.map(item => item.price * item.quantity).reduce((prev, curr) => prev+ curr, 0)
   const totalGr = items.map(item => item.weight * item.quantity).reduce((prev, curr) => prev+ curr, 0)
+
   return(
    <>
      <Header title={'Shopping List'}/>
