@@ -12,6 +12,8 @@ import { SvgCartOutlined } from '../assets/icons/TabIcon/SvgCartOutlined';
 import { SvgSettingFilled } from '../assets/icons/TabIcon/SvgSettingFilled';
 import { SvgSettingOutlined } from '../assets/icons/TabIcon/SvgSettingOutlined';
 import HomeNavigator from './HomeNavigator';
+import { Colors } from '../styles';
+import { StyleSheet } from 'react-native';
 
 const { Navigator, Screen } = createBottomTabNavigator<TabsStackScreenList>();
 
@@ -21,7 +23,7 @@ const TabsNavigator = () => {
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarStyle: {},
+        tabBarStyle: styles.tabBar,
         tabBarIcon: ({ focused }) => {
           if (route.name === ETabsStack.Home) {
             if (focused) {
@@ -59,4 +61,25 @@ const TabsNavigator = () => {
   );
 };
 
+const styles = StyleSheet.create({
+  tabBar: {
+    height: 60,
+    position: 'absolute',
+    bottom: 40,
+    left: 40,
+    right: 40,
+    paddingBottom: 0,
+    borderTopWidth: 0,
+    shadowColor: Colors.MAIN,
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 6.84,
+
+    elevation: 5,
+    borderRadius: 24,
+  },
+});
 export default TabsNavigator;
