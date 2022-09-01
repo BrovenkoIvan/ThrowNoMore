@@ -2,11 +2,10 @@ import React, { useCallback } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { IProduct } from '../../../types';
 import { Colors } from '../../../styles';
-import { useStore } from '../../../store';
 import { useCart } from '../../../context/Cart/hooks';
 
 export const RenderCartItem: React.FC<{ item: IProduct }> = ({ item }) => {
-  const { cartList, incrementQuantity, decrementQuantity } = useCart();
+  const { incrementQuantity, decrementQuantity } = useCart();
 
   const handleDecrementQuantity = useCallback(() => {
     decrementQuantity(item);

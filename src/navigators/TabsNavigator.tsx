@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TabsStackScreenList } from './StackScreenList';
 import { ETabsStack } from '../constants/navigation';
@@ -14,10 +14,21 @@ import { SvgSettingOutlined } from '../assets/icons/TabIcon/SvgSettingOutlined';
 import HomeNavigator from './HomeNavigator';
 import { Colors } from '../styles';
 import { StyleSheet } from 'react-native';
+import { useCart } from '../context/Cart/hooks';
 
 const { Navigator, Screen } = createBottomTabNavigator<TabsStackScreenList>();
 
 const TabsNavigator = () => {
+  const { cartList } = useCart();
+
+  const cartCounter = useMemo(
+    () =>
+      cartList.reduce((prev, curr) => {
+        return prev + curr.quantity;
+      }, 0),
+    [cartList],
+  );
+
   return (
     <Navigator
       screenOptions={({ route }) => ({
@@ -55,7 +66,11 @@ const TabsNavigator = () => {
     >
       <Screen name={ETabsStack.Home} component={HomeNavigator} />
       <Screen name={ETabsStack.Notifications} component={NotificationsScreen} />
-      <Screen name={ETabsStack.Cart} component={CartScreen} />
+      <Screen
+        name={ETabsStack.Cart}
+        component={CartScreen}
+        options={cartCounter !== 0 ? { tabBarBadge: cartCounter } : {}}
+      />
       <Screen name={ETabsStack.Setting} component={SettingScreen} />
     </Navigator>
   );
