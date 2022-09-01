@@ -6,24 +6,17 @@ import { EHomeStack } from '../../constants/navigation';
 import { Header } from '../components/Header';
 import { SvgBack } from '../../assets/icons/SvgBack';
 import { Colors } from '../../styles';
-import { useStore } from '../../store';
-import { observer } from 'mobx-react-lite';
 import { useCart } from '../../context/Cart/hooks';
 
 type ProductScreenRouteProp = RouteProp<HomeStackScreenList, EHomeStack.Product>;
 
-const ProductScreen: React.FC = observer(() => {
+const ProductScreen: React.FC = () => {
   const { cartList, incrementQuantity, decrementQuantity } = useCart();
 
   const {
     params: { product },
   } = useRoute<ProductScreenRouteProp>();
   const { goBack } = useNavigation();
-
-  // const { classes } = useStore();
-  // const {
-  //   classes: { items },
-  // } = useStore();
 
   const currentItem = cartList.find((item) => item.id === product.id);
 
@@ -86,7 +79,7 @@ const ProductScreen: React.FC = observer(() => {
       </View>
     </>
   );
-});
+};
 
 const styles = StyleSheet.create({
   productHeader: {

@@ -3,15 +3,10 @@ import { View, StyleSheet, FlatList, Text } from 'react-native';
 import { Header } from '../components/Header';
 import { RenderCartItem } from './components/RenderCartItem';
 import { Colors } from '../../styles';
-import { useStore } from '../../store';
-import { observer } from 'mobx-react-lite';
 import { useCart } from '../../context/Cart/hooks';
 
-const CartScreen: React.FC = observer(() => {
+const CartScreen: React.FC = () => {
   const { cartList } = useCart();
-  // const {
-  //   classes: { items },
-  // } = useStore();
 
   const totalPrice = cartList
     .map((item) => item.price * item.quantity)
@@ -52,7 +47,7 @@ const CartScreen: React.FC = observer(() => {
       ) : null}
     </>
   );
-});
+};
 
 const styles = StyleSheet.create({
   listContainer: {

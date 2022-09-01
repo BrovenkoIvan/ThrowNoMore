@@ -68,7 +68,7 @@ export const blog_list = [
     id: 3,
     image: require('./assets/images/0.jpeg'),
     title: 'Spar and Joker will fight against food waste',
-    time: '2 mounth ago',
+    time: '2 months ago',
   },
 ];
 

@@ -8,10 +8,10 @@ import React, {
 } from 'react';
 import { IProduct } from '../../types';
 
-export interface CartContextProps {
+interface CartContextProps {
   cartList: IProduct[];
-  incrementQuantity: (newItem: IProduct) => void;
-  decrementQuantity: (newItem: IProduct) => void;
+  incrementQuantity(newItem: IProduct): void;
+  decrementQuantity(newItem: IProduct): void;
 }
 
 export const CartContext = createContext<CartContextProps | null>(null);
@@ -24,20 +24,22 @@ export const CartProvider = memo<{ children: ReactNode }>(({ children }) => {
       const foundItem = cartList.find((item) => item.id === newItem.id);
       if (foundItem) {
         if (foundItem.quantityLeft !== 1) {
-          const newList = cartList.map((item) =>
-            item.id === newItem.id
-              ? {
-                  ...item,
-                  quantity: item.quantity + 1,
-                  quantityLeft: item.quantityLeft - 1,
-                }
-              : item,
-          );
-          setCartList(newList);
+          // const newList = cartList
+          setCartList((prevState) => [
+            ...prevState.map((item) =>
+              item.id === newItem.id
+                ? {
+                    ...item,
+                    quantity: item.quantity + 1,
+                    quantityLeft: item.quantityLeft - 1,
+                  }
+                : item,
+            ),
+          ]);
         }
       } else {
         newItem.quantity = 1;
-        setCartList((value) => [...value, newItem]);
+        setCartList((prevState) => [...prevState, newItem]);
       }
     },
     [cartList],
@@ -48,20 +50,22 @@ export const CartProvider = memo<{ children: ReactNode }>(({ children }) => {
       const foundItem = cartList.find((item) => item.id === newItem.id);
       if (foundItem?.quantity !== 1) {
         if (foundItem?.quantity) {
-          const newArr = cartList.map((item) =>
-            item.id === newItem.id
-              ? {
-                  ...item,
-                  quantity: item.quantity - 1,
-                  quantityLeft: item.quantityLeft + 1,
-                }
-              : item,
-          );
-          setCartList(newArr);
+          setCartList((prevState) => [
+            ...prevState.map((item) =>
+              item.id === newItem.id
+                ? {
+                    ...item,
+                    quantity: item.quantity - 1,
+                    quantityLeft: item.quantityLeft + 1,
+                  }
+                : item,
+            ),
+          ]);
         }
       } else {
-        const newArr = cartList.filter((item) => item.id !== newItem.id);
-        setCartList(newArr);
+        setCartList((prevState) => [
+          ...prevState.filter((item) => item.id !== newItem.id),
+        ]);
       }
     },
     [cartList],
