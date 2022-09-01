@@ -5,16 +5,18 @@ import { RenderCartItem } from './components/RenderCartItem';
 import { Colors } from '../../styles';
 import { useStore } from '../../store';
 import { observer } from 'mobx-react-lite';
+import { useCart } from '../../context/Cart/hooks';
 
 const CartScreen: React.FC = observer(() => {
-  const {
-    classes: { items },
-  } = useStore();
+  const { cartList } = useCart();
+  // const {
+  //   classes: { items },
+  // } = useStore();
 
-  const totalPrice = items
+  const totalPrice = cartList
     .map((item) => item.price * item.quantity)
     .reduce((prev, curr) => prev + curr, 0);
-  const totalGr = items
+  const totalGr = cartList
     .map((item) => item.weight * item.quantity)
     .reduce((prev, curr) => prev + curr, 0);
 
@@ -23,14 +25,14 @@ const CartScreen: React.FC = observer(() => {
       <Header title={'Shopping List'} />
       <View style={styles.listContainer}>
         <FlatList
-          data={items}
+          data={cartList}
           renderItem={({ item }) => <RenderCartItem item={item} />}
           style={{ paddingTop: 16 }}
           contentContainerStyle={{ paddingBottom: 150 }}
           showsVerticalScrollIndicator={false}
         />
       </View>
-      {items.length ? (
+      {cartList.length ? (
         <View style={styles.amountContainer}>
           <Text
             style={{
@@ -40,7 +42,7 @@ const CartScreen: React.FC = observer(() => {
               paddingBottom: 8,
             }}
           >
-            You will saving {items.length} products: {totalGr} gr. and{' '}
+            You will saving {cartList.length} products: {totalGr} gr. and{' '}
             {(totalPrice * 0.3).toFixed(2)} kr
           </Text>
           <Text style={{ fontSize: 24, fontWeight: '600' }}>
