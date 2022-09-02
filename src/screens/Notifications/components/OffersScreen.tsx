@@ -16,12 +16,15 @@ const OffersScreen = () => {
   const sortTitle = useRef('Categories');
 
   const handleSort = useCallback((sortBy: string) => {
-    if (sortBy === 'Categories') {
-      sortTitle.current = 'Stores';
-      setSortArray(shops_list);
-    } else if (sortBy === 'Stores') {
-      sortTitle.current = 'Categories';
-      setSortArray(categories_list);
+    switch (sortBy) {
+      case 'Categories':
+        sortTitle.current = 'Stores';
+        setSortArray(shops_list);
+        break;
+      case 'Stores':
+        sortTitle.current = 'Categories';
+        setSortArray(categories_list);
+        break;
     }
   }, []);
 

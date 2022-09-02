@@ -4,7 +4,6 @@ import { Colors } from '../../../styles';
 import { blog_list } from '../../../product_list';
 
 const TipsForYouScreen = () => {
-  console.log(2);
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Blog</Text>

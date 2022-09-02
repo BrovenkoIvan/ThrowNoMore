@@ -36,30 +36,15 @@ const TabsNavigator = () => {
         tabBarShowLabel: false,
         tabBarStyle: styles.tabBar,
         tabBarIcon: ({ focused }) => {
-          if (route.name === ETabsStack.Home) {
-            if (focused) {
-              return <SvgHomeFilled />;
-            } else {
-              return <SvgHomeOutlined />;
-            }
-          } else if (route.name === ETabsStack.Notifications) {
-            if (focused) {
-              return <SvgNotificationsFilled />;
-            } else {
-              return <SvgNotificationsOutlined />;
-            }
-          } else if (route.name === ETabsStack.Cart) {
-            if (focused) {
-              return <SvgCartFilled />;
-            } else {
-              return <SvgCartOutlined />;
-            }
-          } else if (route.name === ETabsStack.Setting) {
-            if (focused) {
-              return <SvgSettingFilled />;
-            } else {
-              return <SvgSettingOutlined />;
-            }
+          switch (route.name) {
+            case ETabsStack.Home:
+              return focused ? <SvgHomeFilled /> : <SvgHomeOutlined />;
+            case ETabsStack.Notifications:
+              return focused ? <SvgNotificationsFilled /> : <SvgNotificationsOutlined />;
+            case ETabsStack.Cart:
+              return focused ? <SvgCartFilled /> : <SvgCartOutlined />;
+            case ETabsStack.Setting:
+              return focused ? <SvgSettingFilled /> : <SvgSettingOutlined />;
           }
         },
       })}
